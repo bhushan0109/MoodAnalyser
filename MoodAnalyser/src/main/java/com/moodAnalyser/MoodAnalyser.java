@@ -6,6 +6,7 @@ public class MoodAnalyser extends Throwable {
 
     public MoodAnalyser(String message) {
         this.message=message;
+
     }
 
     public MoodAnalyser() {
@@ -17,12 +18,14 @@ public class MoodAnalyser extends Throwable {
 
     public String analyseMood(String message) throws MoodAnalyser, MoodAnalysisException {
         try {
+          if (message.length()==0)
+              throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY, "Please enter proper message");
             if (message.contains("SAD"))
                 return "SAD";
             else
                 return "HAPPY";
         }catch (NullPointerException e) {
-            throw new MoodAnalysisException("please enter proper message");
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_NULL, "Please enter proper message");
         }
     }
 }

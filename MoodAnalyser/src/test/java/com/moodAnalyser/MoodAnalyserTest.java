@@ -19,9 +19,16 @@ public class MoodAnalyserTest {
     }
 
     @Test
-    public void givenNullMoodShouldReturnHappy() throws MoodAnalyser, MoodAnalysisException {
+    public void givenNullMoodShouldReturnHappy()  {
         MoodAnalyser md = new MoodAnalyser(null);
-        String mood = md.analyseMood("This is a happy message");
+        String mood = null;
+        try {
+            mood = md.analyseMood("This is a happy message");
+        } catch (MoodAnalyser moodAnalyser) {
+            moodAnalyser.printStackTrace();
+        } catch (MoodAnalysisException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals("HAPPY",mood);
     }
     @Test
@@ -45,6 +52,8 @@ public class MoodAnalyserTest {
             exceptionRule.expect(MoodAnalysisException.class);
             md.analyseMood(null);
         } catch (Exception e) {
+            Assert.assertEquals("Please enter proper message" ,e.getMessage());
         }
+
     }
 }
